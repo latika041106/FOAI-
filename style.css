@@ -1,0 +1,165 @@
+:root {
+  --bg: #0e0f1a;
+  --panel: #171a2b;
+  --border: #2c3050;
+  --accent: #4fd1c5;
+  --danger: #f56565;
+  --warn: #f6ad55;
+  --text: #e6e8f0;
+  --muted: #8a8fb3;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #1a1d33, #0a0b14 70%);
+  color: var(--text);
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+}
+
+.app { max-width: 1100px; margin: 0 auto; padding: 24px 16px 60px; }
+
+header { text-align: center; margin-bottom: 20px; }
+header h1 { margin: 0; font-size: 2.2rem; letter-spacing: 1px; }
+.subtitle { color: var(--muted); margin-top: 4px; }
+
+.main-layout {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* ---------- Board ---------- */
+.board-panel { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(5, 64px);
+  grid-template-rows: repeat(5, 64px);
+  gap: 4px;
+  background: #05060c;
+  padding: 8px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+.cell {
+  width: 64px;
+  height: 64px;
+  background: #1c2038;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  position: relative;
+  transition: background 0.2s ease;
+}
+
+.cell.exit { background: #26304f; border: 1px dashed var(--accent); }
+.cell.health_pack { background: #1e3a2f; }
+.cell.key { background: #3a3520; }
+
+.cell .badge {
+  position: absolute;
+  bottom: 2px;
+  right: 4px;
+  font-size: 0.6rem;
+  color: var(--muted);
+}
+
+/* ---------- Controls ---------- */
+.controls { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.dpad { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.dpad-row { display: flex; gap: 6px; }
+
+.ctrl-btn {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.1s ease, background 0.2s ease;
+}
+.ctrl-btn:hover { background: #232748; transform: translateY(-1px); }
+.ctrl-btn:active { transform: translateY(0); }
+.ctrl-btn.attack { border-color: var(--danger); color: var(--danger); }
+.ctrl-btn.potion { border-color: var(--accent); color: var(--accent); }
+.ctrl-btn.newgame { border-color: var(--warn); color: var(--warn); }
+
+.extra-controls { display: flex; gap: 10px; }
+
+/* ---------- Side panel ---------- */
+.side-panel { display: flex; flex-direction: column; gap: 16px; width: 320px; max-width: 100%; }
+
+.stats-card, .ai-card, .log-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+
+.stats-card h2, .ai-card h2, .log-card h2 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+.enemy-card { border-color: #4a2632; }
+
+.hp-bar {
+  width: 100%;
+  height: 10px;
+  background: #05060c;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+.hp-fill { height: 100%; transition: width 0.3s ease; }
+.player-fill { background: linear-gradient(90deg, #4fd1c5, #38b2ac); }
+.enemy-fill { background: linear-gradient(90deg, #f56565, #c53030); }
+
+.ai-card { border-color: #3a3560; background: #181a30; }
+.ai-card p { margin: 4px 0; font-size: 0.9rem; }
+#ai-rule { color: var(--accent); font-family: monospace; }
+#ai-reason { color: var(--text); }
+
+.log-card { flex: 1; min-height: 180px; }
+.log {
+  max-height: 220px;
+  overflow-y: auto;
+  font-size: 0.82rem;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.log div { border-bottom: 1px solid #24263f; padding-bottom: 4px; }
+
+/* ---------- Overlay ---------- */
+.overlay {
+  position: fixed; inset: 0;
+  background: rgba(5, 6, 12, 0.85);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 10;
+}
+.overlay.hidden { display: none; }
+.overlay-box {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 30px 40px;
+  text-align: center;
+}
+.overlay-box h2 { margin-top: 0; }
+
+@media (max-width: 640px) {
+  .board { grid-template-columns: repeat(5, 52px); grid-template-rows: repeat(5, 52px); }
+  .cell { width: 52px; height: 52px; font-size: 1.3rem; }
+}

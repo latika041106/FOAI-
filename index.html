@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CyberDungeon — Symbolic AI Game Master</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>🗝️ CyberDungeon</h1>
+      <p class="subtitle">Symbolic AI Game Master — Explainable, Rule-Based Enemy</p>
+    </header>
+
+    <div class="main-layout">
+
+      <!-- LEFT: Game board -->
+      <div class="board-panel">
+        <div id="board" class="board"></div>
+
+        <div class="controls">
+          <div class="dpad">
+            <button id="btn-up" class="ctrl-btn">▲ Up</button>
+            <div class="dpad-row">
+              <button id="btn-left" class="ctrl-btn">◀ Left</button>
+              <button id="btn-attack" class="ctrl-btn attack">⚔ Attack</button>
+              <button id="btn-right" class="ctrl-btn">Right ▶</button>
+            </div>
+            <button id="btn-down" class="ctrl-btn">▼ Down</button>
+          </div>
+          <div class="extra-controls">
+            <button id="btn-potion" class="ctrl-btn potion">🧪 Use Potion</button>
+            <button id="btn-newgame" class="ctrl-btn newgame">🔄 New Game</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Stats + AI reasoning + log -->
+      <div class="side-panel">
+
+        <div class="stats-card">
+          <h2>🧑 Player</h2>
+          <div class="hp-bar"><div id="player-hp-fill" class="hp-fill player-fill"></div></div>
+          <p id="player-hp-text">HP: 100/100</p>
+          <p>Key: <span id="player-key">❌</span></p>
+          <p>Potions: <span id="player-potions">1</span></p>
+        </div>
+
+        <div class="stats-card enemy-card">
+          <h2>👾 Enemy</h2>
+          <div class="hp-bar"><div id="enemy-hp-fill" class="hp-fill enemy-fill"></div></div>
+          <p id="enemy-hp-text">HP: 80/80</p>
+          <p>State: <span id="enemy-state">idle</span></p>
+        </div>
+
+        <div class="ai-card">
+          <h2>🧠 AI Reasoning (Explainable)</h2>
+          <p><strong>Rule fired:</strong> <span id="ai-rule">—</span></p>
+          <p><strong>Reason:</strong> <span id="ai-reason">Waiting for your move...</span></p>
+        </div>
+
+        <div class="log-card">
+          <h2>📜 Event Log</h2>
+          <div id="log" class="log"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="overlay" class="overlay hidden">
+      <div class="overlay-box">
+        <h2 id="overlay-title">Game Over</h2>
+        <p id="overlay-text"></p>
+        <button id="overlay-restart" class="ctrl-btn newgame">Play Again</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
